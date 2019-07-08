@@ -1,5 +1,5 @@
 # splMonitor
-This is a relatively simple script run via cron every 10 minutes to ensure alert you when your license used percentage is greater than or equal to 70%.
+Splunk License Monitor is a relatively simple script run via cron every 10 minutes to ensure alert you when your license used percentage is greater than or equal to 70%.
 
 The script runs a search through your splunk API, Gets the SID of the job, and checks the job until it is done to get the results. If Results are returned, it means the usage percent is at or abobe 70% and the script will use SMTPS to send an email via google SMTP to alert you. Otherwise it just logs that it ran.
 
