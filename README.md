@@ -1,18 +1,36 @@
 # splMonitor
 Splunk License Monitor is a relatively simple script run via cron every 10 minutes to ensure alert you when your license used percentage is greater than or equal to a value set by yourself.
 
-The script runs a search through your splunk API, Gets the SID of the job, and checks the job until it is done to get the results. If Results are returned, it means the usage percent is at or above a value you set and the script will use SMTPS to send an email via google SMTP to alert you. Otherwise it just logs that it ran.
-
-If you use your own splunk search, ensure it only returns data when it is above your threshold.
+## Features
+ - Simple threshold settings.
+ - Sends email to any email from a gmail account over 465
+ - Automatically disables inputs assigned to the "search" app.
+ - Multiple email spam preventions. It will only send a single email per hour unless your Usage goes over disablePercent. If it doesn't change after an hour it won't send another email with the same value.
+ - Automatically re-enables inputs when the input falls below the threshold(typically only after 12AM/00:00:00)
 
 ## Setup
+Recommended: Create a gmail account for the app to use with a strong(32 Chars+) randomly generated password.
+
 Store the files on the splunk server (unless you allow external API requests). For this example I will use ```/opt/splunk_scripts/``` on the splunk server itself.
 
-If firewalled - allow port 465 out.
+If firewalled - Allow out: 465(SMTP).
 
-Open splMonitor.py in your favorite editor and add your Host(ln 13), Port(ln 14), API user/pass(ln 8), and Gmail user/pass(ln 9) (recommend making an account just for this) and recipientEmail(Admin/Your email)(ln 11).
+Using the '%%percent%%' in your email allows the email to contain your set percentage before emails being.
 
-If you modify the location of the file edit the directory in 
+You should only have to modify these values with your own. If you change the location of the script, be sure to change the workingDir value as well as the cron output location.
+```
+basicAuth = requests.auth.HTTPBasicAuth('[SPLUNK USER]', '[SPLUNK PASS]') ## Your splunk username/password
+gmailUser = { 'username': '[GMAIL EMAIL]', 'password': "[GMAIL PASSWORD]" } ## Gmail account the script will use.
+
+recipientEmail = "[RECIPIENT EMAIL]" ## Your email or whatever email you want to receive the alerts
+
+splunkHost = "[SPLUNK ADDRESS]" ## Your splunk instance address(ex Splunk.home.net) or any IP (ex 172.16.100.5)
+splunkPort = "[SPLUNK PORT]" ## Your splunk management port
+
+emailPercent = 70 ## The Percent the script will begin sending emails
+disablePercent = 90 ## The percent at which your inputs will be disabled
+workingDir = "/opt/splunk_scripts/splMonitor/" ## Wherever your html and json files are.
+```
 
 Add 
 Command:
