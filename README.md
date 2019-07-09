@@ -18,7 +18,7 @@ If firewalled - Allow out: 465(SMTP).
 Using the '%%percent%%' in your email allows the email to contain your set percentage before emails being.
 
 You should only have to modify these values with your own. If you change the location of the script, be sure to change the workingDir value as well as the cron output location.
-```
+```python
 basicAuth = requests.auth.HTTPBasicAuth('[SPLUNK USER]', '[SPLUNK PASS]') ## Your splunk username/password
 gmailUser = { 'username': '[GMAIL EMAIL]', 'password': "[GMAIL PASSWORD]" } ## Gmail account the script will use.
 
