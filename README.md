@@ -30,6 +30,9 @@ splunkPort = "[SPLUNK PORT]" ## If your haven't changed it use 8089
 emailPercent = 70 ## The Percent the script will begin sending emails
 disablePercent = 90 ## The percent at which your inputs will be disabled
 workingDir = "/opt/splunk_scripts/splMonitor/" ## Wherever your html and json files are.
+
+message["Subject"] = "Splunk License Usage Alert" ## This is the subject of the email
+message["From"] = "Spunk Server <{}>".format(gmailUser['username']) ## You can change the From Display name on this line.
 ```
 
 Add 
