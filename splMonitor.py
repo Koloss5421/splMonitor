@@ -106,7 +106,7 @@ if (response.status_code == 201):
 
         ### Convert the string returned "51.00 %" to just a number "51.00" and make a float
         percentUsed = float( resData[0]['Percentage of License Used'][:-2] )
-        status['lastUsage'] = percentUsed
+
         ### Check if an email has been sent in the last hour to prevent an email every 10 minutes. Percentage of License Used resData[0]['Percentage of License Used']
         if ( (( datetime.datetime.now().timestamp() ) >= ( status["lastEmailTime"] + 3600 )) or ( (percentUsed >= disablePercent) and not status["inputsDisabled"] ) ):
             if ( (percentUsed >= disablePercent) and not status["inputsDisabled"] ):
@@ -150,5 +150,12 @@ else:
     log('[ERROR] Did not receive a sid. :: Status: {}'.format(response.status_code) )
 
 ### Write to the json file at the end of all actions
+## Try to make lastUsage percentUsed
+try:
+    status['lastUsage'] = percentUsed
+except NameError:
+    ### Just needed something here...
+    status['lastUsage'] = status['lastUsage']
+    
 with open( workingDir+'status.json', 'w') as file:
     json.dump(status, file)
