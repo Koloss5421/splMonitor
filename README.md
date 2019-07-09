@@ -25,7 +25,7 @@ gmailUser = { 'username': '[GMAIL EMAIL]', 'password': "[GMAIL PASSWORD]" } ## G
 recipientEmail = "[RECIPIENT EMAIL]" ## Your email or whatever email you want to receive the alerts
 
 splunkHost = "[SPLUNK ADDRESS]" ## Your splunk instance address(ex Splunk.home.net) or any IP (ex 172.16.100.5)
-splunkPort = "[SPLUNK PORT]" ## Your splunk management port
+splunkPort = "[SPLUNK PORT]" ## If your haven't changed it use 8089
 
 emailPercent = 70 ## The Percent the script will begin sending emails
 disablePercent = 90 ## The percent at which your inputs will be disabled
